@@ -2,11 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-def keystoreProperties = new Properties()
-
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -17,35 +12,10 @@ android {
         versionName "1.0"
     }
 
-    signingConfigs {
-        release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-
-        debug {
-            keyAlias keystoreProperties['debugKeyAlias']
-            keyPassword keystoreProperties['debugKeyPassword']
-            storeFile file(keystoreProperties['debugStoreFile'])
-            storePassword keystoreProperties['debugStorePassword']
-        }
-    }
     buildTypes {
 
-        release {
-            signingConfig signingConfigs.release
-
-            postprocessing {
-                removeUnusedCode true
-                removeUnusedResources true
-                obfuscate true
-                optimizeCode true
-                proguardFile 'proguard-rules.pro'
-            }
-
-            debuggable true
+        debug {
+            
         }
 
     }
